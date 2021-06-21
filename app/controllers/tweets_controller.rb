@@ -52,7 +52,7 @@ class TweetsController < ApplicationController
 
     if user_signed_in?
       @tweet = current_user.tweets.build
-      @tweets =@q.result(distinct: true).tweets_for_me(current_user).paginate(page: params[:page], per_page: 5)
+      @tweets =@q.result.tweets_for_me(current_user).paginate(page: params[:page], per_page: 5)
       #@tweets = Tweet.paginate(page: params[:page], per_page: 5)
      
       @likes = Like.all
