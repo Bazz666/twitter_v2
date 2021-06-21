@@ -1,0 +1,21 @@
+<%= form_with(model: tweet, local:true) do |form| %>
+    
+  <% if tweet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
+
+      <ul>
+      <% tweet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field mb-3 text-11">
+      <%= form.text_area :content , placeholder: 'Your next Tweet', required: true, maxlength:"140", class: " text-11 form-control rounded-pill rounded ml-4", style: "width:90%; resize:none;" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "New Tweet", class: 'btn btn-primary' %>
+  </div>
+<% end %>

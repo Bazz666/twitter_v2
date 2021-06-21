@@ -1,0 +1,31 @@
+
+
+<nav class="navbar navbar-inverse bg-inverse navbar-dark bg-dark fixed-top ">
+  <div class="container">
+    <a class="navbar-brand " href="<%= root_path %>">
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+      <div class="navbar-nav mr-auto text-right"> <!-- ml-auto hace que el texto se vaya a la derecha -->
+      
+        <% if user_signed_in? %>
+          <br>
+          <p class="text-white font-weight-bold">Bienvenid@ <%=current_user.username%> </p>
+          <a class="nav-link text-white "><%=link_to 'Cerrar Sesion', destroy_user_session_path, method: :delete %>   
+          <a class="nav-link text-white " ><%=link_to 'Edit Account', edit_user_registration_path %></a>
+          
+        
+        <% else %>
+          
+          <a class="nav-link text-white " ><%= link_to "Acceder", user_session_path %></a>
+          <a class="nav-link text-white font-weight-bold" ><%= link_to "Registrarse", new_user_registration_path %></a>
+          
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</nav>

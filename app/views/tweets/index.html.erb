@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-md-2">
+    <% if current_user %>
+      <h2 class="text-primary">
+        <%=  "Bienvenid@" %> <%=current_user.username%>
+      </h2>  
+    <% end %>
+  </div>
+</div>
+
+<% if user_signed_in? %>
+  <div class="col-12 border border-secondary rounded">
+    <article class="media p-2">
+      <div class="align-self-start">
+  
+        <img src="<%= current_user.profile_photo %>" width="60" height="60" class="round-circle mb-2" >
+      
+      </div>
+      <div class="media-body">
+        <div class=" container mt-0">
+          <%= render 'form', tweet: @tweet %>
+        </div>
+      </div>
+    </article>
+  </div>
+<% end %>
+    
+ <%= link_to 'add new friends', users_show_path, class: "btn btn-info btn-sm my-2" %>
+
+<br>
+<h2>Tweets</h2>
+
+<div class = "container d-flex justify-content-left">
+  <div class="col-md-3 offset-md-2">
+     <%= search_form_for @q do |f| %>
+          <div class="form-group">
+            <%= f.label :content_cont, 'Tweet Content', class: 'h4 font-weight-bold'  %>
+            <%= f.search_field :content_cont, class: 'form-control', placeholder: 'Search Content' %>
+          </div>
+          <%= f.submit 'Search', class: 'btn btn-info' %>
+        <% end %>
+  </div>
+</div>
+
+
+
+
+<% @tweets.each do |tweet| %>
+
+
+  <div class="card mx-auto col-md-6 mb-3" style="max-width: 650px;">
+    <div class="row no-gutters">
+      <div class="col-md-2 py-4"> 
+        <img src="<%= tweet.user&.profile_photo %>"width="80" height="80" class="rounded-circle mb-2 mx-4" >  
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-user pr-8"><%= tweet.user %> .
+          <small class="text-muted display-12"><%= link_to time_ago_in_words(tweet.created_at),tweet %></small>
+          </h5>
+          
+
+          <p>
+            <% content_tweet_array = tweet.content.split%>
+            <% content_tweet_array.each do |element|%>
+              <% if element.start_with?("#") %>
+                  <% element.slice!(0) %>
+                  <a href="?hashtag=<%= element %>">#<%= element %></a>
+              <% else %>
+              <%= element %>
+              <% end %>
+            <% end %>  
+          </p>  
+
+        </div>
+        </div>
+        <% if user_signed_in? %>
+          <div class="col-md-2">
+              <button type="button" class=" text-center my-2  btn btn-info"><%= link_to 'Show', tweet %></button>
+            <% if current_user.id == tweet.user_id %>
+              <button type="button" class="text-center  my-2 btn btn-warning"><%= link_to 'Edit', edit_tweet_path(tweet) %></button>
+              <button type="button" class=" text-center my-2 btn btn-danger"><%= link_to 'destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></button>
+            <% end %>
+          </div>
+        <%end%>
+        <div class="row">
+          <div class="col-md-2">
+              <small class="text-muted"><i class="fas fa-thumbs-up fa-x"></i><%= tweet.get_upvotes.size %></small>
+          </div>
+
+          <div class="col-md-2">
+            <small class="text-muted"><i class="fas fa-thumbs-down fa-x"></i><%= tweet.get_downvotes.size %></small>
+          </div>
+
+          <div class="col-md-2">
+            <small class="text-muted"><i class="fas fa-retweet"></i><%= tweet.share %></small>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  <div>
+<% end %>
+
+
+
+
+<br>
+<div class="row">
+  <div class="col-md-8 offset-md-4">
+    <%= will_paginate @tweets, :previous_label => ' ', :next_label => ' --> view more tweets' %>
+  </div>
+</div>
