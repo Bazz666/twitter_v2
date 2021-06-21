@@ -41,28 +41,29 @@ class TweetsController < ApplicationController
 
 
   def index
-    @q = Tweet.ransack(params[:q])
 
-    
     if params[:tweetsearch].present?
-      @tweets = Tweet.search_my_tweets(params[:tweetsearch]).paginate(page: params[:page], per_page: 5).order("created_at DESC")
+      @tweets = Tweet.search_hashs(params[:tweetsearch]).paginate(page: params[:page], per_page: 5)
     elsif params[:hashtag].present?
-      @tweets = Tweet.search_my_tweets("##{params[:hashtag]}").paginate(page: params[:page], per_page: 5).order("created_at DESC")
+      @tweets = Tweet.search_hashs("##{params[:hashtag]}").paginate(page: params[:page], per_page: 5)
     end
+
+    @q = Tweet.ransack(params[:q])
 
     if user_signed_in?
       @tweet = current_user.tweets.build
-      @tweets =@q.result.tweets_for_me(current_user).paginate(page: params[:page], per_page: 5)
+      @tweets = (@q.result(distinct: true)).tweets_for_me(current_user.id).paginate(page: params[:page], per_page: 5)
+      
+
       #@tweets = Tweet.paginate(page: params[:page], per_page: 5)
      
       @likes = Like.all
       @retweet = Retweet.all
       @tweet = Tweet.new
     else
-      @tweets=(@q.result(distinct: true)).all
+      @tweets = (@q.result(distinct: true)).all
     end
     return @tweets, @tweet
-
   end
 
 

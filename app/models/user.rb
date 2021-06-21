@@ -14,7 +14,12 @@ class User < ApplicationRecord
   def to_s
     username
   end
-
+  
+  def friend_list
+    users = self.friends.map{|f| f.friend_id}
+    users.push(self.id)
+    return users
+  end
   
 
   

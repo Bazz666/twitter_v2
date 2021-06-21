@@ -34,8 +34,8 @@
   <div class="col-md-3 offset-md-2">
      <%= search_form_for @q do |f| %>
           <div class="form-group">
-            <%= f.label :content, 'Tweet Content', class: 'h4 font-weight-bold'  %>
-            <%= f.search_field :content, class: 'form-control', placeholder: 'Search Content' %>
+            <%= f.label :content_cont, 'Tweet Content', class: 'h4 font-weight-bold'  %>
+            <%= f.search_field :content_cont, class: 'form-control', placeholder: 'Search Content' %>
           </div>
           <%= f.submit 'Search', class: 'btn btn-info' %>
         <% end %>

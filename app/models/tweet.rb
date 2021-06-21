@@ -7,21 +7,21 @@ class Tweet < ApplicationRecord
   has_many :retweets , dependent: :destroy
   
   
-  scope :tweets_for_me, -> (user) { Tweet.where(user_id: user.friends.pluck(:friend_id).uniq) }
   
+  scope :tweets_for_me, -> (user_id) { where(user_id: User.find(user_id).friend_list) }
   
   #delegate :profile_photo, to: :user, prefix: :true
   
  
-  def self.search_posts(x)
-    @posts = Tweet.all 
-    posts_id_array = [] 
-    @posts.each do |post|  
-        if post.content.include? "#{x}" 
-            post_id_array << post.id
+  def self.search_hashs(x)
+    @hashs = Tweet.all 
+    hash_id_array = [] 
+    @hashs.each do |hash|  
+        if hash.content.include? "#{x}" 
+            hash_id_array << hash.id
         end
     end
-    self.where(id: post_id_array)
+    self.where(id: hash_id_array)
   end
 
   def share
