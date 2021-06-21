@@ -13,15 +13,15 @@ class Tweet < ApplicationRecord
   #delegate :profile_photo, to: :user, prefix: :true
   
  
-  def self.search_my_tweets(x)
-    @my_tweets = Tweet.all 
-    my_tweet_id_array = [] 
-    @my_tweets.each do |my_tweet|  
-        if my_tweet.content.include? "#{x}" 
-            my_tweet_id_array << my_tweet.id
+  def self.search_posts(x)
+    @posts = Tweet.all 
+    posts_id_array = [] 
+    @posts.each do |post|  
+        if post.content.include? "#{x}" 
+            post_id_array << post.id
         end
     end
-    self.where(id: my_tweet_id_array)
+    self.where(id: post_id_array)
   end
 
   def share
