@@ -5,20 +5,12 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version 5.2.3
 
-* System dependencies
+* Heroku: https://frozen-brushlands-90096.herokuapp.com/
 
-* Configuration
+* Heroku Admin: https://frozen-brushlands-90096.herokuapp.com/admin
 
-* Database creation
+* user admin: 	bazz@example.com
+  password admin: password
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
