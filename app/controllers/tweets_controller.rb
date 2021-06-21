@@ -42,11 +42,7 @@ class TweetsController < ApplicationController
 
   def index
 
-    if params[:tweetsearch].present?
-      @tweets = Tweet.search_hashs(params[:tweetsearch]).paginate(page: params[:page], per_page: 5)
-    elsif params[:hashtag].present?
-      @tweets = Tweet.search_hashs("##{params[:hashtag]}").paginate(page: params[:page], per_page: 5)
-    end
+   
 
     @q = Tweet.ransack(params[:q])
 
@@ -54,7 +50,11 @@ class TweetsController < ApplicationController
       @tweet = current_user.tweets.build
       @tweets = (@q.result(distinct: true)).tweets_for_me(current_user.id).paginate(page: params[:page], per_page: 5)
       
-
+      if params[:tweetsearch].present?
+        @tweets = Tweet.search_hashs(params[:tweetsearch]).paginate(page: params[:page], per_page: 5)
+      elsif params[:hashtag].present?
+        @tweets = Tweet.search_hashs("##{params[:hashtag]}").paginate(page: params[:page], per_page: 5)
+      end
       #@tweets = Tweet.paginate(page: params[:page], per_page: 5)
      
       @likes = Like.all
