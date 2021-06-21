@@ -1,0 +1,22 @@
+<% @users.each do |user| %>
+    <tr>
+        <td><img src="<%= user.profile_photo %>" width="60" height="60" class="round-circle mb-2" ></td>
+        <td><%= user.username %></td>
+        <td><% user.id %></td>
+
+    <% if current_user.friends.include? user %>
+        
+        <%= button_to "Unfollow",unfollow_user_path(user), method: :delete %>
+    <%else%>
+        
+        <%= button_to "Follow", follow_user_path(user), method: :post  %>
+        
+    <%end %>
+       
+
+    </tr>
+<% end %>
+
+<div class="text-left my-5">
+      <%= link_to 'Back', root_path, class: "btn btn-danger" %>
+</div>

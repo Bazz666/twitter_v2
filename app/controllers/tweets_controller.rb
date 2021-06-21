@@ -45,9 +45,9 @@ class TweetsController < ApplicationController
 
     
     if params[:tweetsearch].present?
-      @tweets = Tweet.search_my_tweets(params[:tweetsearch]).page(params[:page]).order("created_at DESC")
+      @tweets = Tweet.search_my_tweets(params[:tweetsearch]).paginate(page: params[:page], per_page: 5).order("created_at DESC")
     elsif params[:hashtag].present?
-      @tweets = Tweet.search_my_tweets("##{params[:hashtag]}").page(params[:page]).order("created_at DESC")
+      @tweets = Tweet.search_my_tweets("##{params[:hashtag]}").paginate(page: params[:page], per_page: 5).order("created_at DESC")
     end
 
     if user_signed_in?
