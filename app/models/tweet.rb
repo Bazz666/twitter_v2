@@ -4,7 +4,7 @@ class Tweet < ApplicationRecord
   has_many  :likes, dependent: :destroy
   validates :content, presence: true
   acts_as_votable
-  has_many :retweets ,dependent: :destroy
+  has_many :retweets , dependent: :destroy
   
   
   scope :tweets_for_me, -> (user) { Tweet.where(user_id: user.friends.pluck(:friend_id).uniq) }

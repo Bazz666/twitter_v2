@@ -1,4 +1,4 @@
-lass TweetsController < ApplicationController
+class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy retweets]
   before_action :authenticate_user!, exept: [:index,:show]
   skip_before_action :verify_authenticity_token, :only => [:index, :show,:new ]
