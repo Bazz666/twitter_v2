@@ -15,9 +15,8 @@
           <br>
           <p class="text-white font-weight-bold">Bienvenid@ <%=current_user.username%> </p>
           <a class="nav-link text-white "><%=link_to 'Cerrar Sesion', destroy_user_session_path, method: :delete %>   
-          <a class="nav-link text-white " ><%=link_to 'Edit Account', edit_user_registration_path %></a>
+          <a class="nav-link text-white "><%=link_to 'Edit Account', edit_user_registration_path %></a>
           
-        
         <% else %>
           
           <a class="nav-link text-white " ><%= link_to "Acceder", user_session_path %></a>

@@ -28,11 +28,9 @@ Rails.application.routes.draw do
     get 'tweets_for_me/:id', to:'friends#show'
   end
   
-
-
-
-  
-
+  get 'api/news', to: 'api#news'
+  get 'api/:fecha1/:fecha2', to: 'api#tweets_range'
+  post 'api/create', to: 'api#create'
   
   get 'users/show', to: 'users#show'
   root 'tweets#index'
