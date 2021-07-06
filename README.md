@@ -13,8 +13,12 @@ Things you may want to cover:
 
 * user admin: 	bazz@example.com
   password admin: password
+
+
+ **  hito3 **
+ 
 * postman tweet api  : postman@example.com
   password:       postman
 
-* headers:  user=
+* headers:  user_id(postman)= 7
             content= " ....."
