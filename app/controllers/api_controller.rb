@@ -2,7 +2,7 @@ class ApiController < ApplicationController
     include ActionController::HttpAuthentication::Basic::ControllerMethods
 
     skip_before_action :verify_authenticity_token, on: [:create]
-    http_basic_authenticate_with name: "postman@example.com", password: "postman", except: [:news, :tweets_range]
+    http_basic_authenticate_with name: "postman@example.com", password: "postman", only: [:create]
 
     def news
         @info = []
